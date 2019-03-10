@@ -28,7 +28,8 @@ public class RobotMap {
 
   public static int elevatorMotor = 0;
 
-  public static int compressor = 7;
+  public static int compressor = 0
+  ;
 
   public static int ejectSolenoidF = 1;
   public static int ejectSolenoidR = 0;

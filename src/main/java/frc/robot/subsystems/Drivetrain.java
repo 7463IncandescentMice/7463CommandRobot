@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
+import frc.robot.commands.arcadeDriveCommand;
 
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -31,15 +32,17 @@ public class Drivetrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
     
-    VictorSPX m_frontLeft = new VictorSPX(RobotMap.leftFrontMotor);
-    VictorSPX m_frontRight = new VictorSPX(RobotMap.rightFrontMotor);
-    VictorSPX m_backLeft = new VictorSPX(RobotMap.leftBackMotor);
-    VictorSPX m_backRight = new VictorSPX(RobotMap.rightBackmotor);
+    // VictorSPX m_frontLeft = new VictorSPX(RobotMap.leftFrontMotor);
+    // VictorSPX m_frontRight = new VictorSPX(RobotMap.rightFrontMotor);
+    // VictorSPX m_backLeft = new VictorSPX(RobotMap.leftBackMotor);
+    // VictorSPX m_backRight = new VictorSPX(RobotMap.rightBackmotor);
 
-    // WPI_VictorSPX m_frontLeft = new WPI_VictorSPX(RobotMap.leftFrontMotor);
-    // WPI_VictorSPX m_frontRight = new WPI_VictorSPX(RobotMap.rightFrontMotor);
-    // WPI_VictorSPX m_backLeft = new WPI_VictorSPX(RobotMap.leftBackMotor);
-    // WPI_VictorSPX m_backRight = new WPI_VictorSPX(RobotMap.rightBackmotor);
+    WPI_VictorSPX m_frontLeft = new WPI_VictorSPX(RobotMap.leftFrontMotor);
+    WPI_VictorSPX m_frontRight = new WPI_VictorSPX(RobotMap.rightFrontMotor);
+    WPI_VictorSPX m_backLeft = new WPI_VictorSPX(RobotMap.leftBackMotor);
+    WPI_VictorSPX m_backRight = new WPI_VictorSPX(RobotMap.rightBackmotor);
+
+    DifferentialDrive diffDrive;
 
     // private final SpeedController m_leftMotor
     //     = new SpeedControllerGroup(m_frontLeft, m_backLeft);
@@ -49,23 +52,39 @@ public class Drivetrain extends Subsystem {
     // private final DifferentialDrive m_drive
     //     = new DifferentialDrive(m_leftMotor, m_rightMotor);
     
+  public Drivetrain() {
+    m_backRight.setInverted(true);
+    m_backLeft.setInverted(true);
+
+    m_backRight.follow(m_frontRight);
+    m_backLeft.follow(m_frontLeft);
+
+    m_frontLeft.set(ControlMode.PercentOutput, 0);
+    m_frontRight.set(ControlMode.PercentOutput, 0);
+    m_backLeft.set(ControlMode.PercentOutput, 0);
+    m_backRight.set(ControlMode.PercentOutput, 0);
+
+    diffDrive = new DifferentialDrive(m_frontLeft, m_frontRight);
+
+    diffDrive.setDeadband(.05);
+    diffDrive.setMaxOutput(.9);
+  }
+
   @Override
   public void initDefaultCommand() {
 
-      m_frontLeft.set(ControlMode.PercentOutput, 0);
-      m_frontRight.set(ControlMode.PercentOutput, 0);
-      m_backLeft.set(ControlMode.PercentOutput, 0);
-      m_backRight.set(ControlMode.PercentOutput, 0);
+
 
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new arcadeDriveCommand());
   }
 
-  public void drive(double left, double right) {
-      m_frontLeft.set(ControlMode.PercentOutput, left * -1);
-      m_frontRight.set(ControlMode.PercentOutput, right);
-      m_backLeft.set(ControlMode.PercentOutput, left * -1);
-      m_backRight.set(ControlMode.PercentOutput, right);
+  public void drive(double Speed, double Rotation) {
+      // m_frontLeft.set(ControlMode.PercentOutput, left * -1);
+      // m_frontRight.set(ControlMode.PercentOutput, right);
+      // m_backLeft.set(ControlMode.PercentOutput, left * -1);
+      // m_backRight.set(ControlMode.PercentOutput, right);
+      diffDrive.arcadeDrive(Speed, Rotation);
   }
 
   // public void arcadeDrive(double v, double h) {

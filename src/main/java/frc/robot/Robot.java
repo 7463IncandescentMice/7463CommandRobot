@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
   Command m_ElevatorCommand;
   Command m_EjectorCommand;
 
-  public static Drivetrain m_drivetrain;
+  public static Drivetrain m_drivetrain = new Drivetrain();
   public static Intake m_intake;
   public static Elevator m_elevator;
 
@@ -56,9 +56,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-
-    m_drivetrain = new Drivetrain();
-    m_Drive = new Drive();
 
     m_intake = new Intake();
     m_IntakeCommand = new IntakeCommand();
@@ -146,7 +143,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    m_Drive.start();
+    // m_Drive.start();
     m_IntakeCommand.start();
     m_ElevatorCommand.start();
     // m_EjectorCommand.start();
