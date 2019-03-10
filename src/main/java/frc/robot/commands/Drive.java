@@ -34,23 +34,27 @@ public class Drive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (m_oi.stick1.getRawAxis(1) < (previousSpeedLeft - accelerationCap)) {
-      currentSpeedLeft = previousSpeedLeft - accelerationCap;
-    } else if (m_oi.stick1.getRawAxis(1) > (previousSpeedLeft + accelerationCap)) {
-      currentSpeedLeft = previousSpeedLeft + accelerationCap;
-    } else {
-      currentSpeedLeft = m_oi.stick1.getRawAxis(1);
-    }
+    // if (m_oi.stick1.getRawAxis(1) < (previousSpeedLeft - accelerationCap)) {
+    //   currentSpeedLeft = previousSpeedLeft - accelerationCap;
+    // } else if (m_oi.stick1.getRawAxis(1) > (previousSpeedLeft + accelerationCap)) {
+    //   currentSpeedLeft = previousSpeedLeft + accelerationCap;
+    // } else {
+    //   currentSpeedLeft = m_oi.stick1.getRawAxis(1);
+    // }
 
-    if (m_oi.stick1.getRawAxis(5) < (previousSpeedRight - accelerationCap)) {
-      currentSpeedRight = previousSpeedRight - accelerationCap;
-    } else if (m_oi.stick1.getRawAxis(5) > (previousSpeedRight + accelerationCap)) {
-      currentSpeedRight = previousSpeedRight + accelerationCap;
-    } else {
-      currentSpeedRight = m_oi.stick1.getRawAxis(5);
-    }
+    // if (m_oi.stick1.getRawAxis(5) < (previousSpeedRight - accelerationCap)) {
+    //   currentSpeedRight = previousSpeedRight - accelerationCap;
+    // } else if (m_oi.stick1.getRawAxis(5) > (previousSpeedRight + accelerationCap)) {
+    //   currentSpeedRight = previousSpeedRight + accelerationCap;
+    // } else {
+    //   currentSpeedRight = m_oi.stick1.getRawAxis(5);
+    // }
 
-    Robot.m_drivetrain.drive(currentSpeedLeft, currentSpeedRight);
+    
+
+    // Robot.m_drivetrain.drive(currentSpeedLeft, currentSpeedRight);
+    Robot.m_drivetrain.drive(m_oi.stick1.getRawAxis(1), m_oi.stick1.getRawAxis(5));
+    // Robot.m_drivetrain.arcadeDrive(m_oi.stick1.getRawAxis(1), m_oi.stick1.getRawAxis(4));
     previousSpeedLeft = currentSpeedLeft;
     previousSpeedRight = currentSpeedRight;
   }

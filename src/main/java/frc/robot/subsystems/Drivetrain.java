@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 //import frc.robot.RobotMap;
 
@@ -29,14 +30,19 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 public class Drivetrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-
+    
     VictorSPX m_frontLeft = new VictorSPX(RobotMap.leftFrontMotor);
     VictorSPX m_frontRight = new VictorSPX(RobotMap.rightFrontMotor);
     VictorSPX m_backLeft = new VictorSPX(RobotMap.leftBackMotor);
     VictorSPX m_backRight = new VictorSPX(RobotMap.rightBackmotor);
 
+    // WPI_VictorSPX m_frontLeft = new WPI_VictorSPX(RobotMap.leftFrontMotor);
+    // WPI_VictorSPX m_frontRight = new WPI_VictorSPX(RobotMap.rightFrontMotor);
+    // WPI_VictorSPX m_backLeft = new WPI_VictorSPX(RobotMap.leftBackMotor);
+    // WPI_VictorSPX m_backRight = new WPI_VictorSPX(RobotMap.rightBackmotor);
+
     // private final SpeedController m_leftMotor
-    //     = new SpeedControllerGroup(new PWMVictorSPX(0), new PWMVictorSPX(1));
+    //     = new SpeedControllerGroup(m_frontLeft, m_backLeft);
     // private final SpeedController m_rightMotor
     //     = new SpeedControllerGroup(new PWMVictorSPX(2), new PWMVictorSPX(3));
 
@@ -61,4 +67,8 @@ public class Drivetrain extends Subsystem {
       m_backLeft.set(ControlMode.PercentOutput, left * -1);
       m_backRight.set(ControlMode.PercentOutput, right);
   }
+
+  // public void arcadeDrive(double v, double h) {
+  //   m_drive.arcadeDrive(v, h);
+  // }
 }

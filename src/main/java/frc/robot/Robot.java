@@ -17,10 +17,12 @@ import frc.robot.commands.Drive;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ElevatorCommand;
+import frc.robot.commands.EjectorCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Elevator;;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Ejector;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,6 +33,7 @@ import frc.robot.subsystems.Elevator;;
  */
 public class Robot extends TimedRobot {
   public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
+  public static Ejector m_ejector = new Ejector();
   public static OI m_oi;
 
   public NetworkTable table;
@@ -41,6 +44,7 @@ public class Robot extends TimedRobot {
   Command m_Drive;
   Command m_IntakeCommand;
   Command m_ElevatorCommand;
+  Command m_EjectorCommand;
 
   public static Drivetrain m_drivetrain;
   public static Intake m_intake;
@@ -62,8 +66,8 @@ public class Robot extends TimedRobot {
     m_elevator = new Elevator();
     m_ElevatorCommand = new ElevatorCommand();
 
+
     table = NetworkTable.getTable("datatable");
-    table.putNumber("x", 5);
 
     m_oi = new OI();
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
@@ -145,6 +149,7 @@ public class Robot extends TimedRobot {
     m_Drive.start();
     m_IntakeCommand.start();
     m_ElevatorCommand.start();
+    // m_EjectorCommand.start();
   }
 
   /**
